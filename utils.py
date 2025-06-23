@@ -12,7 +12,11 @@ def generate_xiaohongshu(theme, openai_api_key):
         ("system", system_template_text),
         ("user", user_template_text)
     ])
-    model = ChatOpenAI(model="gpt-4o", api_key=openai_api_key)
+    model = ChatOpenAI(
+        model="gpt-4o", 
+        api_key=openai_api_key, 
+        base_url='https://xiaoai.plus/v1'
+    )
     output_parser = PydanticOutputParser(pydantic_object=Xiaohongshu)
     chain = prompt | model | output_parser
     result = chain.invoke({
